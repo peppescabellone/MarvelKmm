@@ -1,20 +1,45 @@
 package it.to.marvelkmm.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import it.to.marvelkmm.Greeting
+import android.util.Log
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import it.to.marvelkmm.Greeting
+import it.to.marvelkmm.data.network.MarvelApi
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 fun greet(): String {
     return Greeting().greeting()
 }
 
 class MainActivity : AppCompatActivity() {
+
+    private val mainScope = MainScope()
+
+    private val marvelApi = MarvelApi()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val tv: TextView = findViewById(R.id.text_view)
         tv.text = greet()
+
+        displayLaunches()
+    }
+
+    @DelicateCoroutinesApi
+    private fun displayLaunches() {
+        mainScope.launch {
+            kotlin.runCatching {
+                marvelApi.getAllCharacters()
+            }.onSuccess {
+                Log.d("TAG", it.data.characters[0].name)
+            }.onFailure {
+                Log.e("TAG", "davvero pensavi funzionasse al primo colpo?")
+            }
+        }
     }
 }
