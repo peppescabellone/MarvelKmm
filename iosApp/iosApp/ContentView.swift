@@ -2,10 +2,17 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-	let greet = Greeting().greeting()
-
+	
+    let greet = Greeting().greeting()
+    let marvelApi = MarvelApi()
+    
 	var body: some View {
-		Text(greet)
+        Button("Give me Heroes!") {
+            Task {
+              try? await marvelApi.getAllCharacters()
+            }
+        }
+        
 	}
 }
 
