@@ -8,6 +8,7 @@
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
+        android:name=".MarvelApplication"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"

@@ -9,6 +9,7 @@ version = "1.0"
 val coroutinesVersion = "1.5.0-native-mt"
 val serializationVersion = "1.2.2"
 val ktorVersion = "1.6.1"
+val koinVersion = "3.0.2"
 
 kotlin {
     android()
@@ -41,6 +42,9 @@ kotlin {
 
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+
+                implementation("io.insert-koin:koin-core:$koinVersion")
+                implementation("io.insert-koin:koin-android:${koinVersion}")
             }
         }
 
