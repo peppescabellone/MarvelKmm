@@ -6,7 +6,6 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import it.to.marvelkmm.data.dto.CharactersResponse
 import it.to.marvelkmm.data.network.Constants.Companion.API_KEY
-import it.to.marvelkmm.data.network.Constants.Companion.BASE_URL
 import it.to.marvelkmm.data.network.Constants.Companion.HASH
 import it.to.marvelkmm.data.network.Constants.Companion.MARVEL_GET_HEROES
 import it.to.marvelkmm.data.network.Constants.Companion.TS
@@ -16,9 +15,14 @@ class MarvelApi {
 
     private val httpClient = HttpClient {
         install(JsonFeature) {
-            val json = Json { ignoreUnknownKeys = true }
+            val json = Json {
+                ignoreUnknownKeys = true
+                useAlternativeNames = false
+            }
             serializer = KotlinxSerializer(json)
         }
+
+
     }
 
     suspend fun getAllCharacters(): CharactersResponse {

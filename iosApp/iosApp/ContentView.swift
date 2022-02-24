@@ -8,9 +8,15 @@ struct ContentView: View {
     
 	var body: some View {
         Button("Give me Heroes!") {
-            Task {
-              try? await marvelApi.getAllCharacters()
-            }
+            
+            marvelApi.getAllCharacters() { list, error in
+                        print("\(list?.data.characters.first)")
+                    }
+            
+//            Task {
+//              let list = try? await marvelApi.getAllCharacters()
+//                print("\(list?.data.characters.first)")
+//            }
         }
         
 	}
